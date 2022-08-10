@@ -1,0 +1,21 @@
+package services.areas.controlador;
+
+import java.util.List;
+import java.util.Optional;
+
+import services.areas.entidades.Area;
+
+public interface AreaController {
+    
+    public List<Area> getAreas();
+
+	public Optional<Area> getAreaById(String id);
+
+	public Area addArea(Area Area);
+
+	public String deleteArea(Long id);
+
+	public String updateArea(Area areaNew);
+
+	public String test();
+}
