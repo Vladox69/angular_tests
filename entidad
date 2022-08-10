@@ -1,0 +1,41 @@
+package services.areas.entidades;
+
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.Table;
+
+@Entity
+@Table(name = "AREAS_VIEW")
+public class Area {
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Column(name="DMEOR_CODIGO")
+	String DmeorCodigo;
+	@Column(name="DMEOR_NOMBRE")
+	String DmeorNombre;
+	@Column(name="DMEOR_ABREVIATURA")
+	String DmeorAbreviatura;
+	
+	//GETTERS & SETTERS
+	public String getDmeorCodigo() {
+		return DmeorCodigo;
+	}
+	public void setDmeorCodigo(String DmeorCodigo) {
+		this.DmeorCodigo = DmeorCodigo;
+	}
+	public String getDmeorNombre() {
+		return DmeorNombre;
+	}
+	public void setDmeorNombre(String DmeorNombre) {
+		this.DmeorNombre = DmeorNombre;
+	}
+	public String getDmeorAbreviatura() {
+		return DmeorAbreviatura;
+	}
+	public void setDmeorAbreviatura(String DmeorAbreviatura) {
+		this.DmeorAbreviatura = DmeorAbreviatura;
+	}
+}
