@@ -1,0 +1,11 @@
+package services.areas.repositorio;
+
+import java.util.Optional;
+import org.springframework.data.jpa.repository.JpaRepository;
+
+import services.areas.entidades.Area;
+
+public interface AreasRepositorio extends JpaRepository<Area, String>{
+    
+    Void save(Optional<Area> areasToUpdate);
+}
