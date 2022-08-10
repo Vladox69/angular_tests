@@ -1,0 +1,54 @@
+package services.areas.controlador;
+
+import java.util.List;
+import java.util.Optional;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RestController;
+
+import services.areas.entidades.Area;
+import services.areas.servicio.AreaService;
+
+@RestController
+public class AreaControllerImpl implements AreaController {
+	@Autowired
+	AreaService areaService;
+
+    // http://localhost:8080/areas (GET)
+    @RequestMapping(value = "api/areas", method = RequestMethod.GET, produces = "application/json")
+    @Override
+    public List<Area> getAreas() {
+        return areaService.findAllAreas();
+    }
+
+    // http://localhost:8080/areas/DMEOR36 (GET)
+    @RequestMapping(value = "api/areas/{id}", method = RequestMethod.GET, produces = "application/json")
+    @Override
+    public Optional<Area> getAreaById(@PathVariable String id) {
+        return areaService.findAreaById(id);
+    }
+
+    @Override
+    public Area addArea(Area Area) {
+        return null;
+    }
+
+    @Override
+    public String deleteArea(Long id) {
+        return null;
+    }
+
+    @Override
+    public String updateArea(Area areaNew) {
+        return null;
+    }
+
+    @Override
+    public String test() {
+        return null;
+    }
+
+    
+}
