@@ -1,0 +1,42 @@
+package services.areas.servicio;
+
+import java.util.List;
+import java.util.Optional;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import services.areas.entidades.Area;
+import services.areas.repositorio.AreasRepositorio;
+
+@Service
+public class AreaServiceImpl implements AreaService {
+
+	@Autowired
+	AreasRepositorio areasRepository;
+
+	@Override
+	public List<Area> findAllAreas() {
+		return areasRepository.findAll();
+	}
+
+	@Override
+	public Optional<Area> findAreaById(String id) {
+		Optional<Area> customer = areasRepository.findById(id.toString());
+		return customer;
+	}
+
+	@Override
+	public Area saveArea(Area AreaNew) {
+		return null;
+	}
+
+	@Override
+	public String deleteArea(Long id) {
+		return null;
+	}
+
+	@Override
+	public String updateArea(Area AreaNew) {
+		return null;
+	}
+}
