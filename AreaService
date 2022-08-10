@@ -1,0 +1,18 @@
+package services.areas.servicio;
+
+import java.util.List;
+import java.util.Optional;
+
+import services.areas.entidades.Area;
+
+public interface AreaService {
+	public List<Area> findAllAreas();
+
+	public Optional<Area> findAreaById(String id);
+
+	public Area saveArea(Area AreaNew);
+
+	public String deleteArea(Long id);
+
+	public String updateArea(Area AreaNew);
+}
