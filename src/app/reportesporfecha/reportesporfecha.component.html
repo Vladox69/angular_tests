@@ -1,0 +1,40 @@
+<div class="contenedor">
+  <div class="hijo">
+    <mat-card class="example-card">
+      <mat-card-title>PROCESO PORTAL COMPRAS</mat-card-title>
+      <mat-card-subtitle class="subtitle">Filtrar por fechas</mat-card-subtitle>
+      <mat-card-content class="content">
+        <form class="date-block" [formGroup]="filterForm">
+          <div class="date-block__list">
+            <mat-form-field>
+              <input  class="fecha1" [(ngModel)]="startDate" matInput 
+                [matDatepicker]="fromDate" 
+                placeholder="Fecha inicial" 
+                formControlName="fromDate">
+              <mat-datepicker-toggle matSuffix [for]="fromDate"></mat-datepicker-toggle>
+              <mat-datepicker class="fecha1" #fromDate></mat-datepicker>
+            </mat-form-field>
+          </div>
+            <div class="date-block__list">
+            <mat-form-field>
+              <input [(ngModel)]="finalDate" matInput 
+                [matDatepicker]="toDate" 
+                placeholder="Fecha final" 
+                formControlName="toDate">
+              <mat-datepicker-toggle matSuffix [for]="toDate"></mat-datepicker-toggle>
+              <mat-datepicker #toDate></mat-datepicker>
+            </mat-form-field>
+           
+          </div>
+        </form>
+      </mat-card-content>
+      <mat-card-actions>
+        <button class="filter-button" mat-raised-button color="primary" 
+        [routerLink]="['/reportesporfecha/reportesfiltrados', startDate| date: 'yyyy-MM-dd',finalDate| date: 'yyyy-MM-dd']" [disabled]="!filterForm.valid" >Obtener resultados</button>
+      </mat-card-actions>
+    </mat-card>
+  </div>
+</div>
+
+
+

@@ -1,0 +1,46 @@
+<h1 mat-dialog-title>DETALLE PROCESOS </h1>
+<mat-card-subtitle class="subtitulo">{{data.startDate  | date: 'yyyy-MM-dd'}} hasta {{data.finalDate | date: 'yyyy-MM-dd'}}</mat-card-subtitle>
+<mat-dialog-content class="mat-typography">
+<mat-divider></mat-divider>
+  <h3 class="titulo">RESOLUCIONES</h3>
+  <p>Numero de Adjudicados: {{recibidonumerointres_Detalle.length}} </p>
+
+  <p>Numero de Desiertos: {{recibidonumerointres_Detalle_Desierto.length}} </p>
+
+  <p>Numero de Cancelados: {{recibodonumerointres_Detalle_Cancelado.length}} </p>
+
+  <p>Numero de No Utilizados: {{recibidonumerointres_Detalle_NoUtilizado.length}} </p>
+
+  <p class="total-resoluciones">Total: {{recibidonumerointres_Total_Detalle.length}}</p>
+
+<mat-divider></mat-divider>
+  <h3 class="titulo">PROCESOS</h3>
+  <p>Numero de Procesos SIE: {{recibidonumeroSIE.length}} -------->  Valores SIE: {{getValoresContratados().toFixed(2)}}</p>
+
+  <p>Numero de Procesos COTO: {{recibidonumeroDeCOTO.length}} -------->  Valores COTO: {{getValoresContratadosCOTO().toFixed(2)}}</p>
+
+  <p>Numero de Procesos CDC: {{recibidosnumeroDeCDC.length}} --------> Valores CDC: {{ getValoresContratadosCDC().toFixed(2)}}</p>
+
+  <p>Numero de Procesos AFD: {{recibidonumeroDeAFD.length}} --------> Valores AFD: {{getValoresContratadosAFD().toFixed(2)}}</p>
+
+  <p>Numero de Procesos BID: {{recibidonumeroDeBID.length}} --------> Valores BID: {{ getValoresContratadosBID().toFixed(2)}} </p>
+
+  <p>Numero de Procesos RE: {{recibidonumeroDeRE.length}} --------> Valores RE: {{getValoresContratadosRE().toFixed(2)}}</p>
+
+  <p>Numero de Procesos MCO: {{recibidonumeroDeMCO.length}} --------> Valores MCO: {{getValoresContratadosMCO().toFixed(2)}}</p>
+
+  <p>Numero de Procesos MCS: {{recibidonumerodeMCS.length}} --------> Valores MCS: {{getValoresContratadosMCS().toFixed(2)}}</p>
+
+  <p>Numero de Procesos COTS: {{recibidonumeroDeCOTS.length}} -------->  Valores COTS: {{ getValoresContratadosCOTS().toFixed(2)}}</p>  
+
+  <p>Numero de Procesos LICO: {{recibidonumeroDeLICO.length}} --------> Valores LICO: {{getValoresContratadosLICO().toFixed(2)}}</p>
+
+  <p>Numero de Procesos FI: {{recibidonumeroDeFI.length}} --------> Valores FI: {{ getValoresContratadosFI().toFixed(2)}}</p>
+
+  <p  class="total-resoluciones">TOTAL: {{recibidonumeroTotalProcesos.length}} --------> TOTAL VALORES: {{getTotalValoresContratados().toFixed(2)}}</p>
+
+</mat-dialog-content>
+<mat-dialog-actions align="end">
+  <button mat-button mat-dialog-close>Volver</button>
+</mat-dialog-actions>
+

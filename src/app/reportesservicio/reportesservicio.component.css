@@ -1,0 +1,104 @@
+
+.example-container {
+  display: flex;
+  flex-direction: column;
+  max-height: 500px;
+}
+.container{
+    background-color: white;
+    border: 1.5px solid black;
+    border-radius: 10px;
+    text-align: center;
+}
+.mat-table {
+  overflow: auto;
+  max-height: 500px;
+}
+.container{
+    background-color: white;
+    border: 1.5px solid black;
+    border-radius: 10px;
+    text-align: center;
+}
+.mat-table{
+    background-color: rgba(255, 255, 255, 0.959);
+    height : 100vh;
+    overflow: auto;   
+    width: 1123px;
+}
+.mat-header-cell, .mat-cell {
+    min-width: 150px;
+}
+.mat-form-field-underline{
+    background-color:transparent;
+}
+
+.mat-form-field-flex{
+    font-size: 14px;
+    line-height: 1em;
+    color: #555;
+    background-image: none;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    margin-top: 8px;
+    padding: 2px;
+}
+.mat-form-field-wrapper{
+    padding-bottom: 1.25em;
+    padding-top: 1.25em;
+}
+.mat-form-field-infix{
+    border:0px;
+}
+.mat-paginator{
+    background-color: white;
+    
+}
+
+.mat-row, .mat-header-row {
+    min-width: 2800px;
+    width: 100%;
+  }
+  .mat-header-cell{
+      background-color:darkgray;
+      font-weight: bolder;
+      border-color: black;
+      
+  }
+
+  button.button-excel {
+    margin-left: 34px;
+    margin-top: 18px;
+    background-color:darkgreen;
+    color: white;
+    display: inline-flex;
+  }  
+  button.button-pdf {
+    margin-left: 20px;
+    display: inline-flex;
+  } 
+  button.recharge{
+    height: 10%;
+   
+   
+    
+  } 
+  
+
+  h1.titulo-principal{
+    text-align: center;
+    display: inline-flex;
+    margin-left: 500px;
+    
+  }
+  .buscar {
+    min-height: 64px;
+    padding: 8px 24px 0;
+    
+  }
+  mat-form-field.tipo-proceso{
+    margin-left: 20px;
+  }
+  mat-divider{
+    width: 100%;
+  }

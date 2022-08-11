@@ -1,0 +1,264 @@
+<br />
+<div class="buscar">
+  <div class="contenedor">
+    <div class="hijo">
+      <mat-card class="example-card">
+        <mat-card-title>PROCESO PORTAL COMPRAS</mat-card-title>
+        <mat-card-subtitle class="subtitle"
+          >Filtrar por fechas</mat-card-subtitle
+        >
+        <mat-card-content class="content">
+          <form class="date-block" [formGroup]="filterForm">
+            <div class="date-block__list">
+              <mat-form-field>
+                <input
+                  class="fecha1"
+                  [(ngModel)]="startDate"
+                  matInput
+                  [matDatepicker]="fromDate"
+                  placeholder="Fecha inicial"
+                  formControlName="fromDate"
+                />
+                <mat-datepicker-toggle
+                  matSuffix
+                  [for]="fromDate"
+                ></mat-datepicker-toggle>
+                <mat-datepicker
+                  touchUi
+                  class="fecha1"
+                  #fromDate
+                ></mat-datepicker>
+              </mat-form-field>
+            </div>
+            <div class="date-block__list">
+              <mat-form-field>
+                <input
+                  [(ngModel)]="finalDate"
+                  matInput
+                  [matDatepicker]="toDate"
+                  placeholder="Fecha final"
+                  formControlName="toDate"
+                />
+                <mat-datepicker-toggle
+                  matSuffix
+                  [for]="toDate"
+                ></mat-datepicker-toggle>
+                <mat-datepicker touchUi #toDate></mat-datepicker>
+              </mat-form-field>
+            </div>
+          </form>
+        </mat-card-content>
+        <mat-card-actions>
+          <button
+            class="filter-button"
+            mat-raised-button
+            color="primary"
+            (click)="vaciarListas()"
+            [routerLink]="[
+              '/reportesporfecha/reportesfiltrados',
+              startDate | date: 'yyyy-MM-dd',
+              finalDate | date: 'yyyy-MM-dd'
+            ]"
+            [disabled]="!filterForm.valid"
+          >
+            Obtener resultados
+          </button>
+        </mat-card-actions>
+      </mat-card>
+    </div>
+  </div>
+</div>
+<mat-divider></mat-divider>
+<div>
+  <button
+    (click)="
+      exporter.exportTable('xlsx', { fileName: 'Compras_Publicas' }); mostrar()
+    "
+    class="button-excel"
+    mat-raised-button
+  >
+    <mat-icon>description</mat-icon>
+    Excel
+  </button>
+  <button
+    class="button-pdf"
+    mat-raised-button
+    color="warn"
+    (click)="exportTable()"
+  >
+    <mat-icon>picture_as_pdf</mat-icon>
+    PDF
+  </button>
+  <button
+    mat-raised-button
+    color="primary"
+    class="detalle"
+    (click)="openDialog()"
+  >
+    Detalle Procesos
+  </button>
+  <mat-form-field class="comboProcesos" appearance="fill">
+    <mat-label>Tipo de Proceso</mat-label>
+    <mat-select
+      [(ngModel)]="selectedTipo"
+      (ngModelChange)="comboxFiltrarTipo()"
+    >
+      <mat-option>TODOS</mat-option>
+      <mat-option value="SIE">SIE</mat-option>
+      <mat-option value="COTO">COTO</mat-option>
+      <mat-option value="CDC">CDC</mat-option>
+      <mat-option value="AFD">AFD</mat-option>
+      <mat-option value="BID">BID</mat-option>
+      <mat-option value="RE">RE</mat-option>
+      <mat-option value="MCO">MCO</mat-option>
+      <mat-option value="MCS">MCS</mat-option>
+      <mat-option value="COTS">COTS</mat-option>
+      <mat-option value="LICO">LICO</mat-option>
+      <mat-option value="FI">FI</mat-option>
+    </mat-select>
+  </mat-form-field>
+  
+  <mat-form-field class="comboProcesos" appearance="fill">
+    <mat-label>Departamentos</mat-label>
+    <mat-select
+      [(ngModel)]="select_departamento"
+      (ngModelChange)="comboxFiltrarTipo()"
+    >
+      <mat-option value="">TODOS</mat-option>
+      <mat-option *ngFor="let departamento of departametos" [value]=departamento.INTDEP_DESCRIPCION >{{departamento.INTDEP_DESCRIPCION}}</mat-option>
+    </mat-select>
+  </mat-form-field>
+
+  <button
+    mat-raised-button
+    color="primary"
+    class="button-filter"
+    (click)="todosProcesos()"
+  >
+    <mat-icon>settings_backup_restore</mat-icon>
+    Todos
+  </button>
+</div>
+<mat-divider></mat-divider>
+<div id="contentToConvert">
+  <h1 class="titulo-principal">PROCESOS PORTAL DE COMPRAS PUBLICAS</h1>
+
+  <div class="example-container mat-elevation-z8">
+    <table
+      mat-table
+      matTableExporter
+      [dataSource]="dataSource"
+      matSort
+      #exporter="matTableExporter"
+      id="ExampleTable"
+    >
+      <ng-container matColumnDef="INTRP_FECHA_PUBLICACION">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>
+          FECHA DE RESOLUCION
+        </th>
+        <td mat-cell *matCellDef="let element">
+          {{ element.createdAt }}
+        </td>
+        <td class="td-valorContratado" mat-footer-cell *matFooterCellDef>
+          Valor Total Contratado:
+        </td>
+      </ng-container>
+
+      <ng-container matColumnDef="INTPRO_DESCRIPCION">
+        <th mat-header-cell *matHeaderCellDef>PROCESO DESCRIPCION</th>
+        <td mat-cell *matCellDef="let element">
+          {{ element.intpro_DESCRIPCION }}
+        </td>
+        <td mat-footer-cell *matFooterCellDef>{{ calcularTotal() }}</td>
+      </ng-container>
+
+      <ng-container matColumnDef="INTPRO_ABREV">
+        <th mat-header-cell *matHeaderCellDef>PROCESO</th>
+        <td mat-cell *matCellDef="let element">{{ element.intpro_ABREV }}</td>
+      </ng-container>
+
+      <ng-container matColumnDef="INTRP_NUMEROPROCESO">
+        <th mat-header-cell *matHeaderCellDef>NUMERO PROCESO</th>
+        <td mat-cell *matCellDef="let element">
+          {{ element.intrp_NUMEROPROCESO }}
+        </td>
+      </ng-container>
+
+      <ng-container matColumnDef="INTRP_CODIGOPROCESO">
+        <th mat-header-cell *matHeaderCellDef>CODIGO PROCESO</th>
+        <td mat-cell *matCellDef="let element">
+          {{ element.intrp_CODIGOPROCESO }}
+        </td>
+      </ng-container>
+
+      <ng-container matColumnDef="INTRP_DETALLE">
+        <th mat-header-cell *matHeaderCellDef>DETALLE</th>
+        <td mat-cell *matCellDef="let element">{{ element.intrp_DETALLE }}</td>
+      </ng-container>
+
+      <ng-container matColumnDef="INTRES_DETALLE">
+        <th mat-header-cell *matHeaderCellDef>RESOLUCION</th>
+        <td mat-cell *matCellDef="let element">{{ element.intres_DETALLE }}</td>
+      </ng-container>
+
+      <ng-container matColumnDef="INTRP_NUMOFICIO">
+        <th mat-header-cell *matHeaderCellDef>OFICIO</th>
+        <td mat-cell *matCellDef="let element">
+          {{ element.intrp_NUMOFICIO }}
+        </td>
+      </ng-container>
+
+      <ng-container matColumnDef="MA_CONT_RAZON_SOCIAL">
+        <th mat-header-cell *matHeaderCellDef>CONTRATISTA</th>
+        <td mat-cell *matCellDef="let element">
+          {{ element.ma_CONT_RAZON_SOCIAL }}
+        </td>
+      </ng-container>
+      <ng-container matColumnDef="INTDEP_DESCRIPCION">
+        <th mat-header-cell *matHeaderCellDef>DEPARTAMENTO</th>
+        <td mat-cell *matCellDef="let element">
+          {{ element.intdep_DESCRIPCION }}
+        </td>
+      </ng-container>
+      <ng-container matColumnDef="CONTRAF_NUMERO_CONTRATO">
+        <th mat-header-cell *matHeaderCellDef>AÑO</th>
+        <td mat-cell *matCellDef="let element">
+          {{ element.contraf_NUMERO_CONTRATO }}
+        </td>
+      </ng-container>
+
+      <ng-container matColumnDef="CONTRAF_VALOR_CONTRATO">
+        <th mat-header-cell *matHeaderCellDef>VALOR CONTRATADO</th>
+        <td mat-cell *matCellDef="let element">
+          {{ element.contraf_VALOR_CONTRATO }}
+        </td>
+      </ng-container>
+
+      <ng-container matColumnDef="disclaimer">
+        <td mat-footer-cell *matFooterCellDef colspan="6">
+          <p><b>Adjudicados:</b>{{ filtrarTotalAdjudicados() }}</p>
+          <p><b>Desiertos:</b>{{ filtrarTotalDesiertos() }}</p>
+          <p><b>Cancelados:</b>{{ filtrarTotalCancelados() }}</p>
+          <p><b>No utilizados:</b>{{ filtrarTotalNoUtilizados() }}</p>
+        </td>
+      </ng-container>
+
+      <ng-container matColumnDef="disclaimer2">
+        <td mat-footer-cell *matFooterCellDef colspan="3"></td>
+      </ng-container>
+
+      <tr mat-header-row *matHeaderRowDef="columnsToDisplay"></tr>
+      <tr mat-row *matRowDef="let row; columns: columnsToDisplay"></tr>
+      <tr
+        mat-footer-row
+        *matFooterRowDef="['disclaimer', 'disclaimer2']"
+        class="example-second-footer-row"
+      ></tr>
+      <tr
+        mat-footer-row
+        *matFooterRowDef="displayedTotalColumns"
+        class="example-first-footer-row"
+      ></tr>
+    </table>
+  </div>
+</div>
